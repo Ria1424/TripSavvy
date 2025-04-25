@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TripSavvy | Explore India</title>
+  <link rel="stylesheet" href="landing.css" />
+  <script src="jquery-3.7.1.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">TripSavvy</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#destinations">Destinations</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#blog">Blog</a></li>
+    </ul>
+    <div class="auth-buttons">
+      <button onclick="location.href='login.html'">Login</button>
+      <button onclick="location.href='signup.html'">Sign Up</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-section">
+    <h1>Plan. Explore. Experience.<br>Your Journey Starts Here</h1>
+    <p>Discover unforgettable destinations with personalized tips & itineraries.</p>
+    <div class="hero-buttons">
+      <button onclick="location.href='exploredestinations.html'">Explore Destinations</button>
+      <button onclick="location.href='login.html'">Plan My Trip</button>
+    </div>
+  </header>
+
+  <!-- About Section -->
+  <section class="about-section" id="about">
+    <h2>About TripSavvy</h2>
+    <p>TripSavvy helps you plan smart, travel better, and explore India with confidence.</p>
+    <div class="about-icons">
+      <div class="icon-item">
+        <i class="fas fa-map-marked-alt"></i>
+        <p>Expert Guides</p>
+      </div>
+      <div class="icon-item">
+        <i class="fas fa-route"></i>
+        <p>Plan your Itineraries</p>
+      </div>
+      <div class="icon-item">
+        <i class="fas fa-users"></i>
+        <p>Travel Community</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Destinations -->
+  <section class="destinations-section" id="destinations">
+    <h2>Features</h2>
+    <div class="cards-container">
+      <div class="destination-card">
+        <img src="images/hiddengems.jpg" alt="Hidden gems">
+        <h3>Hidden Gems</h3>
+        <button onclick="location.href='login.html'">View More</button>
+      </div>
+      <div class="destination-card">
+        <img src="images/festivals.jpg" alt="Events and Festivals">
+        <h3>Events and Festivals</h3>
+        <button onclick="location.href='login.html'">View More</button>
+      </div>
+      <div class="destination-card">
+        <img src="images/guides.jpg" alt="About Guides">
+        <h3>About Guides</h3>
+        <button onclick="location.href='login.html'">View More</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials-section">
+    <h2>What Travelers Say</h2>
+    <div class="testimonial-box" id="testimonialBox"></div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter-section" id="blog">
+    <h3>Get travel tips straight to your inbox!</h3>
+    <div class="newsletter-content">
+      <input type="email" placeholder="Enter your email">
+      <button>Subscribe</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links" id="contact">
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </div>
+    <div class="social-icons">
+      <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+    </div>
+    <p>&copy; 2025 TripSavvy</p>
+  </footer>
+
+  <!-- Image Overlay -->
+  <div class="image-overlay">
+    <img src="" alt="Enlarged view">
+  </div>
+
+  <script src="landing.js"></script>
+</body>
+</html>

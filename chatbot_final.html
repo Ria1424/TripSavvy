@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Personalized Travel Itinerary</title>
+  <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome (optional, for icons) -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --royal-blue: #0e7490;
+      --sunset-orange: #FF8C00;
+      --leaf-green: #3CB371;
+      --sand-beige: #F4E9E1;
+      --dark-text: #2D3436;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, var(--sand-beige), #fff);
+      margin: 0;
+      padding: 40px 20px;
+      color: var(--dark-text);
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--royal-blue);
+      margin-bottom: 30px;
+    }
+        /* Navbar */
+        .navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 30px;
+    background: #ffffff;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+    .navbar .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0e7490 !important;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+  
+    .navbar .logo i {
+    color: #0e7490;
+  }
+  
+    .navbar-nav .nav-link {
+    color: #0e7490 !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+    .navbar-nav .nav-link:hover,
+    .dropdown-menu .dropdown-item:hover {
+    color: #0e7490 !important;
+    background-color: #f0fdfa;
+  }
+  
+    .dropdown-menu {
+    background-color: #ffffff;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+    .dropdown-item {
+    color: #0e7490;
+    font-weight: 500;
+    padding: 10px 20px;
+ }
+    form {
+      background: #fff;
+      max-width: 700px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h4 {
+      color: var(--sunset-orange);
+      margin-top: 25px;
+    }
+
+    label {
+      display: block;
+      margin: 6px 0;
+    }
+
+    select, input[type="radio"] {
+      margin-right: 8px;
+      cursor: pointer;
+    }
+
+    select {
+      padding: 8px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+
+    .submit-btn {
+      background-color: var(--royal-blue);
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 30px auto 0;
+      display: block;
+      transition: 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: var(--leaf-green);
+      transform: scale(1.05);
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <a class="logo" href="#">TripSavvy</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Explore</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Events & Festivals</a></li>
+              <li><a class="dropdown-item" href="#">Must See</a></li>
+              <li><a class="dropdown-item" href="#">Local Activities</a></li>
+              <li><a class="dropdown-item" href="#">Guides</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Trip Planner</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Create New Trip</a></li>
+              <li><a class="dropdown-item" href="#">My Itineraries</a></li>
+              <li><a class="dropdown-item" href="#">Saved Destinations</a></li>
+              <li><a class="dropdown-item" href="#">Expense Planner</a></li>
+              <li><a class="dropdown-item" href="#">Calendar</a></li>
+            </ul>
+          </li>
+
+          <!--<li class="nav-item"><a class="nav-link" href="#">Blogs</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>-->
+        </ul>
+
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-circle"></i></a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-cog"></i></a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <form action="home.html" method="post">
+    <h2 style="text-align: center; color: var(--royal-blue); margin-top: 1em;">
+        🧭 Discover Your Perfect Travel Destination!
+      </h2>
+      <p style="text-align: center; font-size: 1.1em; color: var(--dark-text); margin-bottom: 2em;">
+        Fill out the form below and let TripSavvy suggest the best getaway tailored to your preferences.
+      </p>
+    <h4>1. What type of trip are you planning?</h4>
+    <label><input type="radio" name="trip_type" value="Adventure"> Adventure</label>
+    <label><input type="radio" name="trip_type" value="Relaxation"> Relaxation</label>
+    <label><input type="radio" name="trip_type" value="Familyvacation"> Family Vacation</label>
+    <label><input type="radio" name="trip_type" value="Business"> Business</label>
+    <div class="error" id="tripTypeError"></div>
+
+    <h4>2. Where are you thinking of traveling to?</h4>
+    <select name="place">
+      <option value="">-- Select a destination --</option>
+      <option>Goa</option>
+      <option>Kashmir</option>
+      <option>Madhya Pradesh</option>
+    </select>
+    <div class="error" id="placeError"></div>
+
+    <h4>3. What is your ideal travel budget?</h4>
+    <label><input type="radio" name="budget" value="Lowbudget"> Low-Budget</label>
+    <label><input type="radio" name="budget" value="Midrange"> Mid-range</label>
+    <label><input type="radio" name="budget" value="Luxury"> Luxury</label>
+    <div class="error" id="budgetError"></div>
+
+    <h4>4. When are you planning to travel?</h4>
+    <label><input type="radio" name="time" value="Thismonth"> This month</label>
+    <label><input type="radio" name="time" value="Nextthreemonths"> Next 3 months</label>
+    <label><input type="radio" name="time" value="Nospecificdate"> No specific date</label>
+    <div class="error" id="timeError"></div>
+
+    <h4>5. What type of accommodation do you prefer?</h4>
+    <label><input type="radio" name="accommodation_type" value="Hotel"> Hotel</label>
+    <label><input type="radio" name="accommodation_type" value="Resort"> Resort</label>
+    <label><input type="radio" name="accommodation_type" value="Airbnb"> Airbnb</label>
+    <label><input type="radio" name="accommodation_type" value="Vacationrental"> Vacation Rental</label>
+
+    <h4>6. How do you prefer to travel?</h4>
+    <label><input type="radio" name="prefer_travel" value="Plane"> Plane</label>
+    <label><input type="radio" name="prefer_travel" value="Train"> Train</label>
+    <label><input type="radio" name="prefer_travel" value="Roadtrip"> Roadtrip</label>
+    <label><input type="radio" name="prefer_travel" value="Cruise"> Cruise</label>
+
+    <h4>7. What's your preferred climate?</h4>
+    <label><input type="radio" name="prefer_climate" value="Warm"> Warm</label>
+    <label><input type="radio" name="prefer_climate" value="Cold"> Cold</label>
+    <label><input type="radio" name="prefer_climate" value="Mild"> Mild</label>
+    <label><input type="radio" name="prefer_climate" value="Noprefer"> No preference</label>
+    <span id="climateError" style="color:red; font-size: 0.9em;"></span>
+
+    <h4>8. Are you interested in guided tours or self-guided exploration?</h4>
+    <label><input type="radio" name="guide" value="Guided"> Guided</label>
+    <label><input type="radio" name="guide" value="Selfguided"> Self-guided</label>
+    <label><input type="radio" name="guide" value="Both"> Both</label>
+    <label><input type="radio" name="guide" value="None"> None</label>
+
+    <h4>9. Do you have any specific activities or experiences you're looking for?</h4>
+    <label><input type="radio" name="activities" value="Sightseeing"> Sightseeing</label>
+    <label><input type="radio" name="activities" value="Adventure"> Adventure sports</label>
+    <label><input type="radio" name="activities" value="LocalCulture"> Local Cultural Experience</label>
+    <label><input type="radio" name="activities" value="Other"> Other</label>
+
+    <button type="submit" class="submit-btn">Submit</button>
+  </form>
+  <!-- Footer -->
+   <footer class="footer" style="background-color: var(--sand-beige); text-align: center; padding: 1em 0; margin-top: 3em; box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);">
+    <p style="color: var(--dark-text); font-size: 1em;">
+        &copy; 2025 TripSavvy 
+    </p>
+    <p style="font-size: 0.9em; color: #555;">
+        Helping you discover the perfect destination, one journey at a time.
+    </p>
+</footer>
+
+  <script src="travel_validation.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Festival Guide - TripSavvy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0fdfa;
+      display: flex;
+      height: 100vh;
+      color: #2D3436;
+    }
+
+    .sidebar {
+      width: 280px;
+      background-color: #0e7490;
+      color: white;
+      padding: 25px 20px;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 30px;
+      font-size: 22px;
+      font-weight: 600;
+      text-align: center;
+      color: white;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar li {
+      margin-bottom: 18px;
+    }
+
+    .sidebar a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    display: inline; /* was block */
+    padding: 0;       /* reset padding */
+    transition: all 0.3s;
+    }
+
+    .sidebar a:hover {
+    color: #d1f4f9; /* subtle light blue hover */
+    text-decoration: underline;
+    background: none; /* no bg color */
+    padding-left: 0;  /* prevent shift */
+    }
+
+
+    .sidebar ol {
+      list-style-type: lower-roman;
+      margin-top: 8px;
+      margin-left: 20px;
+      font-size: 14px;
+    }
+
+    .sidebar ol li a {
+      color: #f0fdfa;
+    }
+
+    .sidebar ol li a:hover {
+      color: #06262f;
+      text-decoration: none;
+    }
+
+    .content {
+      flex: 1;
+      padding: 30px;
+      background-color: #f0fdfa;
+    }
+
+    .content h1 {
+      font-size: 28px;
+      color: #0e7490;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        box-shadow: none;
+      }
+
+      .content {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Festival Guide</h2>
+    <ul>
+      <li>
+        <a href="cultural-fests.html" target="fests-content"><b>Cultural Festivals</b></a>
+        <ol>
+          <li><a href="cultural-fests.html#dance" target="fests-content">Dance Festivals</a></li>
+          <li><a href="cultural-fests.html#music" target="fests-content">Music Festivals</a></li>
+          <li><a href="cultural-fests.html#folk" target="fests-content">Folk Art Festivals</a></li>
+          <li><a href="cultural-fests.html#lit" target="fests-content">Literary and Arts Festivals</a></li>
+        </ol>
+      </li>
+      <li>
+        <a href="trad-fests.html" target="fests-content"><b>Traditional Festivals</b></a>
+        <ol>
+          <li><a href="trad-fests.html#harvest" target="fests-content">Harvest Festivals</a></li>
+          <li><a href="trad-fests.html#rel" target="fests-content">Religious Festivals</a></li>
+          <li><a href="trad-fests.html#reg" target="fests-content">Regional Festivals</a></li>
+          <li><a href="trad-fests.html#pilg" target="fests-content">Pilgrimage Festivals</a></li>
+        </ol>
+      </li>
+      <li>
+        <a href="modern-fests.html" target="fests-content"><b>Modern Festivals</b></a>
+        <ol>
+          <li><a href="modern-fests.html#global" target="fests-content">International Festivals</a></li>
+          <li><a href="modern-fests.html#film" target="fests-content">Film Festivals</a></li>
+          <li><a href="modern-fests.html#fashion" target="fests-content">Fashion Festivals</a></li>
+          <li><a href="modern-fests.html#tech" target="fests-content">Tech & Innovation</a></li>
+        </ol>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

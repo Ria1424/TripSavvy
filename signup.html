@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripSavvy - Sign Up</title>
+    <link rel="stylesheet" href="signup.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        
+        <form id="signupForm" class="signup-form" action="signup.php" method="POST">
+            <!-- Step 1: Personal Info -->
+            <div class="form-step active" data-step="1">
+                <h2>Create Your TripSavvy Account</h2>
+                <div class="input-group">
+                    <input type="text" id="firstName" name="firstName" required>
+                    <label for="firstName">First Name</label>
+                    <span class="error"></span>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="lastName" name="lastName" required>
+                    <label for="lastName">Last Name</label>
+                    <span class="error"></span>
+                </div>
+                <button type="button" class="btn-next">Next →</button>
+                <p class="login-redirect">
+                    Already have an account? <a href="login.html">Login</a>
+                </p>
+            </div>
+
+            <!-- Step 2: Contact Info -->
+            <div class="form-step" data-step="2">
+                <h2>Contact Information</h2>
+                <div class="input-group">
+                    <input type="email" id="email" name="email" required>
+                    <label for="email">Email Address</label>
+                    <span class="error"></span>
+                </div>
+                <div class="input-group">
+                    <input type="tel" id="phone" name="phone" required>
+                    <span class="error"></span>
+                </div>
+                <div class="input-group">
+                    <select id="country" name="country" required>
+                        <option value="">Select Country</option>
+                        <option value="us">United States</option>
+                        <option value="in">India</option>
+                        <option value="gb">United Kingdom</option>
+                        <option value="ca">Canada</option>
+                        <option value="au">Australia</option>
+                    </select>
+                    <span class="error"></span>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn-prev">← Previous</button>
+                    <button type="button" class="btn-next">Next →</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Account Security -->
+            <div class="form-step" data-step="3">
+                <h2>Account Security</h2>
+                <div class="input-group">
+                    <input type="password" id="password" name="password" required>
+                    <label for="password">Password</label>
+                    <div class="password-strength">
+                        <div class="strength-meter"></div>
+                        <span class="strength-text"></span>
+                    </div>
+                    <span class="error"></span>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <label for="confirmPassword">Confirm Password</label>
+                    <span class="error"></span>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn-prev">← Previous</button>
+                    <button type="button" class="btn-next">Next →</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Additional Info -->
+            <div class="form-step" data-step="4">
+                <h2>Travel Preferences</h2>
+                <div class="input-group">
+                    <div class="date-of-birth">
+                        <select id="day" name="day" required>
+                            <option value="">Day</option>
+                            <!-- Days populated by JS -->
+                        </select>
+                        <select id="month" name="month" required>
+                            <option value="">Month</option>
+                            <!-- Months populated by JS -->
+                        </select>
+                        <select id="year" name="year" required>
+                            <option value="">Year</option>
+                            <!-- Years populated by JS -->
+                        </select>
+                    </div>
+                    <span class="error"></span>
+                </div>
+                
+                <div class="input-group">
+                    <label class="section-label"></label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="frequency" value="rarely" required>
+                            <span class="radio-custom"></span>
+                            Rarely
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="frequency" value="occasionally">
+                            <span class="radio-custom"></span>
+                            Occasionally
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="frequency" value="mostly">
+                            <span class="radio-custom"></span>
+                            Mostly
+                        </label>
+                    </div>
+                    <span class="error"></span>
+                </div>
+
+                <div class="input-group">
+                    <label class="checkbox-option">
+                        <input type="checkbox" id="terms" required>
+                        <span class="checkbox-custom"></span>
+                        I agree to the <a href="#">Terms & Conditions</a>
+                    </label>
+                    <span class="error"></span>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn-prev">← Previous</button>
+                    <button type="submit" class="btn-submit">Create Account</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message">
+        <div class="success-content">
+            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+            <h2>Account Created Successfully!</h2>
+            <p>Welcome to TripSavvy. Start planning your next adventure.</p>
+            <button onclick="window.location.href='home.html'" class="btn-home">
+                Go to Home →
+            </button>
+        </div>
+    </div>
+
+    <script src="signup.js"></script>
+</body>
+</html>

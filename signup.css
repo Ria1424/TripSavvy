@@ -1,0 +1,357 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #0e7490;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.signup-container {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 600px;
+    padding: 40px;
+    position: relative;
+}
+
+.progress-bar {
+    background: #F4E9E1;
+    height: 8px;
+    border-radius: 4px;
+    margin-bottom: 40px;
+}
+
+.progress {
+    background: #FF8C00;
+    height: 100%;
+    width: 25%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.form-step {
+    display: none;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: 0.3s ease;
+}
+
+.form-step.active {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+h2 {
+    color: #2D3436;
+    margin-bottom: 30px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+input, select {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #F4E9E1;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: #0e7490;
+    outline: none;
+}
+
+label:not(.radio-option):not(.checkbox-option) {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #fff;
+    padding: 0 5px;
+    color: #888;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+input:focus ~ label:not(.radio-option):not(.checkbox-option),
+input:not(:placeholder-shown) ~ label:not(.radio-option):not(.checkbox-option) {
+    top: 0;
+    font-size: 12px;
+    color: #0e7490;
+}
+
+.error {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+    min-height: 18px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn-next, .btn-submit {
+    background: #0e7490;
+    color: white;
+}
+
+.btn-prev {
+    background: #F4E9E1;
+    color: #2D3436;
+}
+
+.btn-next:hover {
+    background: #0056b3;
+}
+
+.btn-prev:hover {
+    background: #e0d4ca;
+}
+
+.radio-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 12px 20px;
+    border: 2px solid #F4E9E1;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.radio-option:hover {
+    border-color: #0e7490;
+}
+
+.radio-option input {
+    display: none;
+}
+
+.radio-custom {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #888;
+    border-radius: 50%;
+    position: relative;
+    transition: 0.3s;
+}
+
+input:checked + .radio-custom {
+    border-color: #0e7490;
+    background: #0e7490;
+}
+
+input:checked + .radio-custom::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+}
+
+.checkbox-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.checkbox-option input {
+    display: none;
+}
+
+.checkbox-custom {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #888;
+    border-radius: 4px;
+    position: relative;
+    transition: 0.3s;
+}
+
+input:checked + .checkbox-custom {
+    background: #0e7490;
+    border-color: #0e7490;
+}
+
+input:checked + .checkbox-custom::after {
+    content: "✓";
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.checkbox-option a {
+    color: #0e7490;
+    text-decoration: none;
+}
+
+.checkbox-option a:hover {
+    text-decoration: underline;
+}
+
+.date-of-birth {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.password-strength {
+    margin-top: 10px;
+    height: 4px;
+    background: #F4E9E1;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.strength-meter {
+    height: 100%;
+    width: 0;
+    background: #3CB371;
+    transition: 0.3s;
+}
+
+.strength-text {
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+.section-label {
+    display: block;
+    margin-bottom: 15px;
+    color: #2D3436;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.success-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+.success-message.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+.success-content {
+    text-align: center;
+    padding: 40px;
+    max-width: 500px;
+}
+
+.checkmark {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 30px;
+}
+
+.checkmark__circle {
+    stroke: #3CB371;
+    stroke-width: 2;
+}
+
+.checkmark__check {
+    stroke: #3CB371;
+    stroke-width: 2;
+    stroke-linecap: round;
+}
+
+.success-content h2 {
+    color: #2D3436;
+    margin-bottom: 15px;
+    font-size: 2rem;
+}
+
+.success-content p {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.btn-home {
+    background: #0e7490;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    transition: 0.3s;
+}
+
+.btn-home:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.login-redirect {
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .login-redirect a {
+    color: #0e7490;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .login-redirect a:hover {
+    text-decoration: underline;
+  }
+  

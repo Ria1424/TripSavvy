@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TripSavvy - Explore India</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap 5 & jQuery -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- FontAwesome & Poppins Font -->
+  <link rel="stylesheet" href="home.css">
+  <!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src="exploredestinations.js"></script>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="logo" href="#">TripSavvy</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mx-auto">
+          <!--<li class="nav-item"><a class="nav-link" style="margin: 7px;" href="#">Home</a></li>-->
+  
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" style="margin: 7px;" href="#" role="button" data-bs-toggle="dropdown">Explore</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="fests-frame.html">Events & Festivals</a></li>
+              <li><a class="dropdown-item" href="must_see_final.html">Must See</a></li>
+              <li><a class="dropdown-item" href="local.html">Local Activities</a></li>
+              <li><a class="dropdown-item" href="guides.html">Guides</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link" style="margin: 7px;" href="plannerf.html">Trip Planner</a></li>
+          <!--<li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" style="margin: 7px;" href="#" role="button" data-bs-toggle="dropdown">Trip Planner</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="plannerf.html">Create New Trip</a></li>
+              <li><a class="dropdown-item" href="#">My Itineraries</a></li>
+              <li><a class="dropdown-item" href="#">Saved Destinations</a></li>
+              <li><a class="dropdown-item" href="plannerf.html">Expense Planner</a></li>
+              <li><a class="dropdown-item" href="#">Calendar</a></li>
+            </ul>
+          </li>-->
+  
+          <li class="nav-item"><a class="nav-link" style="margin: 7px;" href="chatbot_final.html">Confused where to visit?</a></li>
+          <!--<li class="nav-item"><a class="nav-link" style="margin: 7px;" href="#">About Us</a></li>-->
+        </ul>
+  
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-circle"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+
+  <!-- Hero Section -->
+  <div class="hero" style="background-image: url(images/header.jpg);">
+    <h1 class="display-4">Explore India with TripSavvy</h1>
+    <p class="lead">Your perfect travel planning partner.</p>
+    <div ng-app="exploreDestinationsApp" ng-controller="DestinationController as vm" class="search-section container mt-4">
+      <input type="text" class="form-control mb-2" placeholder="Search for destinations..." ng-model="vm.query" ng-keyup="vm.search()">
+    
+      <ul class="list-group" ng-show="vm.suggestions.length > 0">
+        <li class="list-group-item" ng-repeat="suggestion in vm.suggestions" ng-click="vm.selectDestination(suggestion)">
+          {{ suggestion }}
+        </li>
+      </ul>
+    
+      <button class="btn" style="background-color: #0e7490; color:white;" ng-click="vm.displayDetails()">Search</button>
+    
+      <div class="mt-3" ng-if="vm.selectedDestination">
+        <h5>Destination Details</h5>
+        <p>{{ vm.selectedDestinationDetails }}</p>
+      </div>
+    </div>       
+  </div>
+
+  <!-- Trip Planner -->
+  <section class="section text-center bg-white">
+    <h2 class="section-title">Start Planning</h2>
+    <p>Create itineraries, manage expenses, and explore with ease!</p>
+    <a href="plannerf.html" class="btn btn-lg mt-3 btn-success">Start Now</a>
+  </section>
+
+  <!-- Hidden Gems -->
+  <section class="section container">
+    <h2 class="section-title text-center">Hidden Gem Attractions</h2>
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="card hover-zoom">
+          <img src="images/elephantastic.jpg" class="card-img-top" alt="Elephantastic">
+          <div class="card-body text-center"><p class="mb-0">Elephantastic</p></div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card hover-zoom">
+          <img src="images/pangongtso.jpeg" class="card-img-top" alt="Pangong Tso Lake">
+          <div class="card-body text-center"><p class="mb-0">Pangong Tso Lake</p></div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card hover-zoom">
+          <img src="images/rootbridge.jpg" class="card-img-top" alt="Living Root Bridge">
+          <div class="card-body text-center"><p class="mb-0">Living Root Bridge</p></div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card hover-zoom">
+          <img src="images/chandbaori.jpg" class="card-img-top" alt="Chand Baori">
+          <div class="card-body text-center"><p class="mb-0">Chand Baori</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-4">
+      <a href="must_see_final.html" class="btn btn-success">View More</a>
+    </div>
+  </section>
+
+  <!-- Local & Festivals -->
+  <section class="section bg-white text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <a href="local.html"><img src="images/local.jpeg" class="img-fluid rounded hover-zoom" alt="Local" style="width:550px; height: 300px;"></a>
+          <h3 class="mt-3">Get Local</h3>
+          <p>Experience authentic culture and traditions.</p>
+        </div>
+        <div class="col-md-6 mb-4">
+          <a href="fests-frame.html"><img src="images/festival.jpg" class="img-fluid rounded hover-zoom" alt="Festival" style="width:550px; height: 300px;"></a>
+          <h3 class="mt-3">Festivals & Events</h3>
+          <p>India's vibrant celebrations await you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blogs -->
+  <!--<section class="section container">
+    <h2 class="section-title text-center">Read Our Blogs</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card text-center hover-zoom">
+          <img src="images/blog1.jpg" class="card-img-top" alt="Blog 1">
+          <div class="card-body"><strong>Blog 1 Title</strong></div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center hover-zoom">
+          <img src="images/blog2.jpg" class="card-img-top" alt="Blog 2">
+          <div class="card-body"><strong>Blog 2 Title</strong></div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center hover-zoom">
+          <img src="images/blog3.jpg" class="card-img-top" alt="Blog 3">
+          <div class="card-body"><strong>Blog 3 Title</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-4">
+      <a href="#" class="btn btn-success">View More</a>
+    </div>
+  </section>-->
+
+  <!-- Guides -->
+  <section class="section text-center bg-light">
+    <h2 class="section-title">Hire Guides</h2>
+    <p>Connect with local experts for your journey.</p>
+    <a href="guides.html" class="btn btn-success">Find a Guide</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 TripSavvy. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>

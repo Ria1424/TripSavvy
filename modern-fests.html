@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cultural Festivals | TripSavvy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fdedf1;
+      color: #2D3436;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #41115b;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      font-weight: 300;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    .festival-img {
+      width: 100%;
+      height: 200px;
+      background-color: #d4f2e7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #41115b;
+      font-size: 1rem;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .festival-img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(14, 116, 144, 0.15);
+    }
+
+    .festival-label {
+      margin-top: 0.5rem;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    .festival-row {
+      margin-bottom: 3rem;
+    }
+  
+  /* Combined Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 30px;
+    background: #ffffff;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .navbar .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #41115b !important;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+  
+  .navbar .logo i {
+    color: #41115b;
+  }
+  
+  .navbar-nav .nav-link {
+    color: #41115b !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar-nav .nav-link:hover,
+  .dropdown-menu .dropdown-item:hover {
+    color: #41115b !important;
+    background-color: #f2e6f9;
+  }
+  
+  .dropdown-menu {
+    background-color: #ffffff;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dropdown-item {
+    color: #41115b;
+    font-weight: 500;
+    padding: 10px 20px;
+  }
+  </style>
+</head>
+<body>
+
+  <!-- TripSavvy Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="logo" href="#">TripSavvy</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" style="margin: 7px;" href="home.html">Home</a></li>
+  
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" style="margin: 7px;" href="#" role="button" data-bs-toggle="dropdown">Explore</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="fests-frame.html" target=_blank>Events & Festivals</a></li>
+              <li><a class="dropdown-item" href="must_see_final.html" target=_blank>Must See</a></li>
+              <li><a class="dropdown-item" href="local.html" target=_blank>Local Activities</a></li>
+              <li><a class="dropdown-item" href="guides.html" target=_blank>Guides</a></li>
+            </ul>
+          </li>
+  
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" style="margin: 7px;" href="#" role="button" data-bs-toggle="dropdown">Trip Planner</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="plannerf.html" target=_blank>Create New Trip</a></li>
+              <!--<li><a class="dropdown-item" href="#">My Itineraries</a></li>-->
+              <li><a class="dropdown-item" href="plannerf.html" target=_blank>Saved Destinations</a></li>
+              <li><a class="dropdown-item" href="plannerf.html" target=_blank>Expense Planner</a></li>
+              <li><a class="dropdown-item" href="plannerf.html" target=_blank>Calendar</a></li>
+            </ul>
+          </li>
+  
+          <!--<li class="nav-item"><a class="nav-link" style="margin: 7px;" href="#">Blogs</a></li>
+          <li class="nav-item"><a class="nav-link" style="margin: 7px;" href="#">About Us</a></li>-->
+        </ul>
+  
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-circle"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container py-5">
+
+    <!-- Traditional Festivals Section -->
+<div class="container py-5">
+    <div class="festival-row" id="traditional">
+      <h2 class="section-title">Modern/Contemporary Festivals</h2>
+      <p class="section-subtitle">
+        These festivals reflect the evolving interests of today’s generation, often blending entertainment, innovation, and global influences with India’s diverse cultural backdrop.
+      </p>
+  
+      <!-- International and Global Festivals -->
+      <h4 class="section-title" id="global">International and Global Festivals</h4>
+      <p class="section-subtitle">
+        These large-scale events showcase music, dance, and global cultures, drawing international artists and enthusiastic crowds to celebrate modern entertainment.
+    </p>
+      </p>
+      <div class="row text-center">
+        <div class="col-md-4 mb-4">
+          <img src="images/glob1.jpg" class="img-fluid rounded festival-img" alt="Makar Sankranti">
+          <div class="festival-label">Goa Carnival – A vibrant fusion of music, dance, and parades rooted in Portuguese traditions.</div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <img src="images/glob2.jpg" class="img-fluid rounded festival-img" alt="Pongal">
+          <div class="festival-label">Sunburn Festival – Asia’s premier EDM festival attracting top global DJs and fans.</div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <img src="images/glob3.webp" class="img-fluid rounded festival-img" alt="Lohri">
+          <div class="festival-label">NH7 Weekender – Celebrating indie and electronic music across major Indian cities.</div>
+        </div>
+      </div>
+  
+      <!-- Film Festivals -->
+      <h4 class="section-title" id="film">Film Festivals</h4>
+      <p class="section-subtitle">
+        These cinematic gatherings bring together filmmakers, critics, and fans to celebrate Indian and international storytelling through powerful visuals and narratives.
+      </p>
+      <div class="row text-center">
+        <div class="col-md-6 mb-4">
+          <img src="images/filf1.avif" class="img-fluid rounded festival-img" alt="Diwali">
+          <div class="festival-label">IFFI – Goa’s International Film Festival showcasing global cinema excellence.</div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <img src="images/filf2.avif" class="img-fluid rounded festival-img" alt="Holi">
+          <div class="festival-label">MAMI – Mumbai’s iconic film festival for indie and international films.</div>
+        </div>
+      </div>
+  
+      <!-- Fshion Festivals -->
+      <h4 class="section-title" id="fashion">Regional Festivals</h4>
+      <p class="section-subtitle">
+        These events set the stage for India’s fashion revolution, highlighting top designers, runway trends, and global fashion innovation.
+      </p>
+      <div class="row text-center">
+        <div class="col-md-6 mb-4">
+          <img src="images/fash1.jpg" class="img-fluid rounded festival-img" alt="Baisakhi">
+          <div class="festival-label">India Fashion Week – A showcase of Indian fashion’s diversity and creativity.</div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <img src="images/fash2.webp" class="img-fluid rounded festival-img" alt="Pushkar Camel Fair">
+          <div class="festival-label">Lakme Fashion Week – Mumbai’s glamorous hub for fashion influencers and designers.</div>
+        </div>
+      </div>
+  
+      <!-- Technology and Innovation Festivals -->
+      <h4 class="section-title" id="tech">Technology and Innovation Festivals</h4>
+      <p class="section-subtitle">
+        These festivals promote cutting-edge tech, entrepreneurship, and futuristic innovations, attracting students, professionals, and creators from across the world.
+      </p>
+      <div class="row text-center">
+        <div class="col-md-4 mb-4">
+          <img src="images/techf1.png" class="img-fluid rounded festival-img" alt="Kumbh Mela">
+          <div class="festival-label">IIT Techfest – Showcasing robotics, AI, and futuristic tech at IIT Bombay.</div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <img src="images/techf2.jpg" class="img-fluid rounded festival-img" alt="Amarnath Yatra">
+          <div class="festival-label">TechSparks – Bangalore’s top startup and innovation summit.</div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <img src="images/techf3.jpg" class="img-fluid rounded festival-img" alt="Amarnath Yatra">
+            <div class="festival-label">Bengaluru Space Expo – Celebrating India's growing space technology sector.</div>
+          </div>
+      </div>
+  
+    </div>
+  </div>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

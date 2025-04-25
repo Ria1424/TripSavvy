@@ -1,0 +1,29 @@
+body {
+    font-family: 'Playfair Display', serif;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  h1, h2, h3, h5 {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .navbar-nav .nav-link {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+  
+  .carousel-inner img {
+    height: 500px;
+    object-fit: cover;
+    border-radius: 0.75rem;
+  }
+  
+  footer {
+    background-color: #222;
+    font-size: 0.9rem;
+  }
+  
+  header h1 {
+    font-size: 2rem;
+  }

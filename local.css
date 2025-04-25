@@ -1,0 +1,95 @@
+/* Navbar styling (as provided by you) */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 30px;
+    background: #ffffff;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .navbar .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0e7490 !important;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: None;
+  }
+  
+  .navbar .logo i {
+    color: #0e7490;
+  }
+  
+  .navbar-nav .nav-link {
+    color: #0e7490 !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar-nav .nav-link:hover,
+  .dropdown-menu .dropdown-item:hover {
+    color: #0e7490 !important;
+    background-color: #f0fdfa;
+  }
+  
+  .dropdown-menu {
+    background-color: #ffffff;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dropdown-item {
+    color: #0e7490;
+    font-weight: 500;
+    padding: 10px 20px;
+  }
+  
+  /* Main Page Styling */
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0fdfa;
+    color: #2D3436;
+  }
+  
+  .container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    color: #0e7490;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  /* Activity Card Styling */
+  .activity-card {
+    background: #ffffff;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 116, 144, 0.1);
+    transition: transform 0.2s ease;
+  }
+  
+  .activity-card:hover {
+    transform: scale(1.01);
+  }
+  
+  .activity-card h2 {
+    margin-bottom: 10px;
+    color: #0e7490;
+  }
+  
+  .activity-card p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  

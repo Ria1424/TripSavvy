@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="travelApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Itinerary Calendar</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- AngularJS -->
+    <script src="https://cdn.jsdelivr.net/npm/angular/angular.min.js"></script>
+
+    <style>
+        :root {
+            --royal-blue: #0e7490;
+            --sunset-orange: #FF8C00;
+            --leaf-green: #3CB371;
+            --sand-beige: #F4E9E1;
+            --dark-text: #2D3436;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark-text);
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+
+        table {
+            width: 100%;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        th, td {
+            padding: 18px;
+            cursor: pointer;
+        }
+
+        .highlight {
+            background-color: #FFD700 !important;
+            color: #000;
+            font-weight: bold;
+        }
+
+        #monthSelector {
+            max-width: 250px;
+            font-size: 18px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .emoji-input {
+            width: 100%;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .note-preview {
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        /* Welcome Page Styling */
+        #welcomeContainer {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #welcomeImage {
+            max-width: 600px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        #startButton {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+        }
+
+        /* NEW: Image Grid Styling */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .image-grid img:hover {
+            opacity: 1;
+            transform: scale(1.03);
+        }
+        .custom-btn {
+            background-color: #FF8C00;
+        }
+        /* Navbar */
+        .navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 30px;
+    background: #ffffff;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .navbar .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0e7490 !important;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+  
+  .navbar .logo i {
+    color: #0e7490;
+  }
+  
+  .navbar-nav .nav-link {
+    color: #0e7490 !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar-nav .nav-link:hover,
+  .dropdown-menu .dropdown-item:hover {
+    color: #0e7490 !important;
+    background-color: #f0fdfa;
+  }
+  
+  .dropdown-menu {
+    background-color: #ffffff;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dropdown-item {
+    color: #0e7490;
+    font-weight: 500;
+    padding: 10px 20px;
+  }
+    </style>
+</head>
+<body ng-controller="CalendarController">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+          <a class="logo" href="#">TripSavvy</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+    
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Explore</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="fests-frame.html">Events & Festivals</a></li>
+                  <li><a class="dropdown-item" href="must_see_final.html">Must See</a></li>
+                  <li><a class="dropdown-item" href="local.html">Local Activities</a></li>
+                  <li><a class="dropdown-item" href="guides.html">Guides</a></li>
+                </ul>
+              </li>
+    
+              <!--<li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Trip Planner</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Create New Trip</a></li>
+                  <li><a class="dropdown-item" href="#">My Itineraries</a></li>
+                  <li><a class="dropdown-item" href="#">Saved Destinations</a></li>
+                  <li><a class="dropdown-item" href="#">Expense Planner</a></li>
+                  <li><a class="dropdown-item" href="#">Calendar</a></li>
+                </ul>
+              </li>-->
+    
+              <!--<li class="nav-item"><a class="nav-link" href="#">Blogs</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>-->
+            </ul>
+    
+            <ul class="navbar-nav mb-2 mb-lg-0">
+              <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-circle"></i></a></li>
+              <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-cog"></i></a></li>
+              <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <!-- Welcome Page -->
+    <div id="welcomeContainer" ng-show="showWelcome">
+        <h1 class="mb-4">Welcome to Your Travel Planner</h1>
+        <p class="mt-4">Plan your adventures month by month, add notes, and use fun emojis to mark your days!</p>
+        <!-- Image Grid Section -->
+        <div class="image-grid">
+            <img src="images/forest.jpg" alt="Forest">
+            <img src="images/goa.avif" alt="Goa">
+            <img src="images/jaipur.webp" alt="Jaipur">
+            <img src="images/kashmir.webp" alt="Kashmir">
+            <img src="images/kerala-backwaters.webp" alt="Kerala">
+            <img src="images/Ladakh-trip.webp" alt="Ladakh">
+        </div>
+
+        <button id="startButton" class="btn custom-btn" ng-click="goToCalendar()">Start Planning</button>
+    </div>
+
+    <!-- Calendar Section -->
+    <div class="container mt-5" ng-show="!showWelcome">
+        <div class="text-center mb-4">
+            <h1 class="mb-3">Travel Itinerary Calendar</h1>
+            <div class="d-flex justify-content-center align-items-center mb-3">
+                <label for="monthSelector" class="form-label me-2">Select Month:</label>
+                <select id="monthSelector" class="form-select" ng-model="selectedMonth" ng-change="changeMonth()">
+                    <option ng-repeat="month in months" value="{{month}}">{{month}}</option>
+                </select>
+            </div>
+            <button class="btn btn-success" ng-click="addEvent()">Add Event</button>
+        </div>
+
+        <table class="table table-bordered table-hover bg-white">
+            <thead class="table-dark">
+                <tr>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="week in currentCalendar">
+                    <td ng-repeat="day in week track by $index" ng-click="openPopup(day, $event)" ng-class="{'highlight': isHighlighted(day)}">
+                        <div>{{ day }}</div>
+                        <div ng-if="dayNotes[selectedMonth + '-' + day]">
+                            <div class="note-preview">{{ dayNotes[selectedMonth + '-' + day].note }}</div>
+                            <div>{{ dayNotes[selectedMonth + '-' + day].emoji }}</div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventModalLabel">Customize {{ selectedMonth }} {{ selectedDay }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="noteInput" class="form-label">Travel Note</label>
+                            <textarea class="form-control" id="noteInput" ng-model="modalData.note" placeholder="Write something about this day..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Choose Emoji or Sticker</label>
+                            <input type="text"
+                                   class="form-control emoji-input"
+                                   ng-model="modalData.emoji"
+                                   placeholder="Enter emoji or select from list"
+                                   list="emojiOptions" />
+                            <datalist id="emojiOptions">
+                                <option value="">None</option>
+                                <option value="🌴">
+                                <option value="✈️">
+                                <option value="🏔️">
+                                <option value="🏝️">
+                                <option value="🏨">
+                                <option value="🎉">
+                                <option value="🧳">
+                                <option value="🚗">
+                                <option value="⛺">
+                                <option value="📸">
+                            </datalist>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" ng-click="savePopup()" data-bs-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="footer" style="background-color: var(--sand-beige); text-align: center; padding: 1em 0; margin-top: 3em; box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);">
+        <p style="color: var(--dark-text); font-size: 1em;">
+        &copy; 2025 TripSavvy
+    </p>
+    <p style="font-size: 0.9em; color: #555;">
+        Plan your dream trip, one date at a time. Explore, customize, and travel smart!
+    </p>
+</footer>
+
+    <!-- AngularJS Script -->
+    <script>
+        var app = angular.module('travelApp', []);
+
+        app.controller('CalendarController', function($scope) {
+            $scope.months = ['January', 'February', 'March', 'April', 'May', 'June',
+                             'July', 'August', 'September', 'October', 'November', 'December'];
+            $scope.selectedMonth = 'April';
+            $scope.monthImage = 'default.jpg';
+            $scope.dayNotes = {};
+            $scope.modalData = { note: '', emoji: '' };
+            $scope.selectedDay = null;
+            $scope.showWelcome = true;
+
+            $scope.goToCalendar = function() {
+                $scope.showWelcome = false;
+                $scope.changeMonth();
+            };
+
+            const daysInMonth = {
+                'January': 31, 'February': 28, 'March': 31, 'April': 30, 'May': 31, 'June': 30,
+                'July': 31, 'August': 31, 'September': 30, 'October': 31, 'November': 30, 'December': 31
+            };
+
+            const firstDayOffsets = {
+                'January': 0, 'February': 4, 'March': 4, 'April': 0, 'May': 2, 'June': 5,
+                'July': 0, 'August': 3, 'September': 6, 'October': 1, 'November': 4, 'December': 6
+            };
+
+            $scope.generateCalendar = function(month) {
+                let totalDays = daysInMonth[month];
+                let offset = firstDayOffsets[month];
+                let calendar = [];
+                let week = new Array(offset).fill("");
+
+                for (let day = 1; day <= totalDays; day++) {
+                    week.push(day);
+                    if (week.length === 7) {
+                        calendar.push(week);
+                        week = [];
+                    }
+                }
+                if (week.length > 0) {
+                    while (week.length < 7) week.push("");
+                    calendar.push(week);
+                }
+
+                return calendar;
+            };
+
+            $scope.changeMonth = function() {
+                $scope.currentCalendar = $scope.generateCalendar($scope.selectedMonth);
+                $scope.monthImage = $scope.selectedMonth.toLowerCase() + '.jpg';
+            };
+
+            $scope.openPopup = function(day, $event) {
+                if (!day) return;
+                $scope.selectedDay = day;
+                const key = $scope.selectedMonth + '-' + day;
+                $scope.modalData = angular.copy($scope.dayNotes[key] || { note: '', emoji: '' });
+                const modal = new bootstrap.Modal(document.getElementById('eventModal'));
+                modal.show();
+            };
+
+            $scope.savePopup = function() {
+                const key = $scope.selectedMonth + '-' + $scope.selectedDay;
+                $scope.dayNotes[key] = angular.copy($scope.modalData);
+            };
+
+            $scope.isHighlighted = function(day) {
+                return day && $scope.dayNotes[$scope.selectedMonth + '-' + day];
+            };
+        });
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
