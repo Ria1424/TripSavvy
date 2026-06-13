@@ -1,0 +1,70 @@
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold mb-3">Travel Stories & Secret Guides</h1>
+        <p class="lead text-muted max-width-600 mx-auto">
+            Read travel diaries, local insights, and expert itineraries curated by our travel community.
+        </p>
+    </div>
+
+    <!-- Filter & Search Controls Panel -->
+    <div class="filter-panel p-4 mb-5 rounded-4 shadow-sm bg-white">
+        <div class="row g-3 align-items-center">
+            <!-- Search Box -->
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-text bg-light border-0"><i class="fas fa-search text-muted"></i></span>
+                    <input type="text" class="form-control bg-light border-0 py-2.5" placeholder="Search articles or authors..." ng-model="blogSearch" />
+                </div>
+            </div>
+            <!-- Category Filters -->
+            <div class="col-md-7 d-flex flex-wrap gap-2 justify-content-md-end">
+                <button class="btn btn-filter" ng-class="{'active': activeCategory === 'all'}" ng-click="setCategory('all')">All</button>
+                <button class="btn btn-filter" ng-class="{'active': activeCategory === 'heritage'}" ng-click="setCategory('heritage')">Heritage</button>
+                <button class="btn btn-filter" ng-class="{'active': activeCategory === 'nature'}" ng-click="setCategory('nature')">Nature & Stay</button>
+                <button class="btn btn-filter" ng-class="{'active': activeCategory === 'culture'}" ng-click="setCategory('culture')">Culture</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blogs Grid -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" ng-repeat="blog in blogs | filter:categoryFilter | filter:blogSearch">
+            <div class="blog-card h-100 rounded-4 shadow-sm bg-white overflow-hidden d-flex flex-column justify-content-between">
+                <div>
+                    <div class="blog-image-wrap" ng-class="blog.imgClass">
+                        <span class="badge bg-sunset text-white blog-category-badge text-capitalize">{{blog.category}}</span>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-muted small mb-2"><i class="fas fa-user-edit me-1"></i> By {{blog.author}} | {{blog.date}}</div>
+                        <h3 class="h5 fw-bold mb-3 text-dark">{{blog.title}}</h3>
+                        <p class="text-secondary small">{{blog.snippet}}</p>
+                    </div>
+                </div>
+                <div class="p-4 border-top">
+                    <button class="btn-read-blog btn btn-sm w-100 rounded-pill py-2" ng-click="readFullBlog(blog)">Read Article</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Read Blog Modal -->
+    <div class="modal fade" id="blogModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content rounded-4 border-0 shadow-lg">
+                <div class="modal-header bg-teal text-white border-0 py-3 rounded-top-4">
+                    <h5 class="modal-title fw-bold"><i class="fas fa-book-open me-2"></i>{{activeBlog.title}}</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="text-muted small mb-4">
+                        <i class="fas fa-user-edit"></i> Published by <strong>{{activeBlog.author}}</strong> on <strong>{{activeBlog.date}}</strong>
+                    </div>
+                    <div class="blog-content-full text-secondary">
+                        <p ng-repeat="paragraph in activeBlog.content" class="mb-3" style="line-height:1.7; text-align:justify;">{{paragraph}}</p>
+                    </div>
+                    <button type="button" class="btn btn-teal-primary w-100 py-2.5 rounded-pill mt-4" data-bs-dismiss="modal">Close Article</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

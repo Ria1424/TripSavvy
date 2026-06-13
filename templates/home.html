@@ -1,0 +1,290 @@
+<!-- Welcome banner -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="welcome-banner p-5 rounded-4 shadow-sm bg-white border-top-active">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="display-6 fw-bold mb-2">Hello, {{profileName}}!</h1>
+                    <p class="text-secondary mb-0">Welcome to your personalized Travel Workspace. Plan day-by-day itineraries, track budgets, and manage local bookings in one screen.</p>
+                </div>
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                    <button class="btn btn-teal-primary px-4 py-2.5 rounded-pill" ng-click="openCreateTripModal()">
+                        <i class="fas fa-plus-circle me-1"></i> Create New Trip
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Dashboard Widgets Grid -->
+<div class="row g-4" ng-if="currentTrip">
+    
+    <!-- Left Panel: Trip Info & Expense Tracker -->
+    <div class="col-lg-4">
+        
+        <!-- Trip Summary Card -->
+        <div class="card border-0 rounded-4 shadow-sm p-4 mb-4">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <span class="badge bg-sunset text-white">Active Trip</span>
+                <button class="btn btn-sm btn-outline-secondary rounded-pill" ng-click="openCreateTripModal()"><i class="fas fa-edit"></i> Edit</button>
+            </div>
+            <h2 class="h3 fw-bold mb-2 text-teal">{{ currentTrip.title }}</h2>
+            <p class="text-secondary mb-3"><i class="fas fa-map-marker-alt me-2 text-danger"></i>Destination: <strong>{{ currentTrip.destination }}</strong></p>
+            <div class="row g-2 border-top pt-3 text-center small text-muted">
+                <div class="col-6 border-end">
+                    <i class="fas fa-calendar-alt me-1"></i> Start Date
+                    <strong class="d-block text-dark mt-1">{{ currentTrip.startDate | date:'mediumDate' }}</strong>
+                </div>
+                <div class="col-6">
+                    <i class="fas fa-clock me-1"></i> Duration
+                    <strong class="d-block text-dark mt-1">{{ getDaysCount() }} Days</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expense Tracker Card -->
+        <div class="card border-0 rounded-4 shadow-sm p-4 mb-4">
+            <h3 class="h5 fw-bold mb-3"><i class="fas fa-wallet text-teal me-2"></i>Expense Planner</h3>
+            
+            <!-- Budget Progress Bar -->
+            <div class="budget-stat d-flex justify-content-between mb-2 small fw-semibold">
+                <span>Total Spent: ₹{{ getTotalSpent() }}</span>
+                <span>Budget: ₹{{ currentTrip.budget }}</span>
+            </div>
+            <div class="progress mb-3" style="height: 10px;">
+                <div class="progress-bar" role="progressbar" 
+                     ng-class="{'bg-success': getBudgetPercentage() <= 75, 'bg-warning': getBudgetPercentage() > 75 && getBudgetPercentage() <= 100, 'bg-danger': getBudgetPercentage() > 100}"
+                     ng-style="{'width': (getBudgetPercentage() > 100 ? 100 : getBudgetPercentage()) + '%'}">
+                </div>
+            </div>
+            
+            <!-- Exceeded Budget Alert -->
+            <div class="alert alert-danger py-2 px-3 rounded-3 mb-4 small" ng-if="getTotalSpent() > currentTrip.budget">
+                <i class="fas fa-exclamation-triangle me-1"></i> <strong>Budget Warning:</strong> You have exceeded your travel budget by ₹{{ getTotalSpent() - currentTrip.budget }}!
+            </div>
+
+            <!-- Add Expense Form -->
+            <form ng-submit="addExpense($event)" class="mb-4 pt-3 border-top">
+                <div class="row g-2">
+                    <div class="col-6">
+                        <input type="text" class="form-control form-control-sm" placeholder="Expense description" required id="expTitle" />
+                    </div>
+                    <div class="col-6">
+                        <input type="number" class="form-control form-control-sm" placeholder="Amount (₹)" required id="expAmount" min="1" />
+                    </div>
+                    <div class="col-12">
+                        <select class="form-select form-select-sm" required id="expCategory">
+                            <option value="">Category</option>
+                            <option value="Stay">Accommodation / Stay</option>
+                            <option value="Transport">Transport / Flights</option>
+                            <option value="Food">Food & Dining</option>
+                            <option value="Guide">Tour Guide fee</option>
+                            <option value="Tickets">Entry Tickets / Fairs</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-teal-primary btn-sm w-100 py-2 rounded-pill"><i class="fas fa-plus"></i> Add Expense</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Expenses List -->
+            <div class="expenses-list" style="max-height: 200px; overflow-y: auto;">
+                <div class="expense-item d-flex justify-content-between align-items-center py-2 border-bottom" ng-repeat="exp in expenses">
+                    <div>
+                        <strong class="d-block small text-dark">{{ exp.title }}</strong>
+                        <span class="badge bg-light text-secondary small-badge">{{ exp.category }}</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="fw-semibold text-dark">₹{{ exp.amount }}</span>
+                        <button class="btn btn-link btn-sm text-danger p-0" ng-click="deleteExpense(exp)"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+                <div class="text-center py-3 text-muted small" ng-if="expenses.length === 0">
+                    No expenses logged yet.
+                </div>
+            </div>
+        </div>
+
+        <!-- Booked Guides & Activities widgets -->
+        <div class="card border-0 rounded-4 shadow-sm p-4 mb-4" ng-if="bookedGuides.length > 0">
+            <h3 class="h5 fw-bold mb-3"><i class="fas fa-user-tie text-teal me-2"></i>Booked Guides</h3>
+            <div class="guide-item p-3 bg-light rounded-3 mb-2" ng-repeat="g in bookedGuides">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h4 class="h6 fw-bold mb-1">{{ g.name }}</h4>
+                        <span class="small text-secondary"><i class="fas fa-map-marker-alt"></i> {{ g.state }}</span>
+                    </div>
+                    <span class="badge bg-teal-soft text-teal">₹{{ g.price }}/day</span>
+                </div>
+                <div class="border-top mt-2 pt-2 text-muted small">
+                    <i class="fas fa-calendar-check me-1"></i> {{ g.startDate | date }} to {{ g.endDate | date }}
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 rounded-4 shadow-sm p-4" ng-if="importedSchedule.length > 0">
+            <h3 class="h5 fw-bold mb-3"><i class="fas fa-calendar-check text-teal me-2"></i>Imported Bookings</h3>
+            <p class="small text-secondary mb-3">Activities scheduled on the explore pages. Click "Add" to schedule them into a day plan.</p>
+            <div class="imported-item p-3 bg-light rounded-3 mb-2 d-flex justify-content-between align-items-center" ng-repeat="item in importedSchedule">
+                <div>
+                    <h4 class="h6 fw-bold mb-1">{{ item.name }}</h4>
+                    <span class="small text-muted"><i class="fas fa-history"></i> {{ item.duration }} | {{ item.date | date:'shortDate' }}</span>
+                </div>
+                <button class="btn btn-teal-primary btn-sm rounded-pill" ng-click="importActivityToItinerary(item)">Add</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Right Panel: Day-by-Day Itinerary builder -->
+    <div class="col-lg-8">
+        <div class="card border-0 rounded-4 shadow-sm p-4">
+            <h3 class="h4 fw-bold mb-4"><i class="fas fa-route text-teal me-2"></i>Day-by-Day Itinerary</h3>
+            
+            <!-- Day selector tabs -->
+            <div class="day-tabs-scroll d-flex gap-2 overflow-x-auto pb-3 mb-4">
+                <button class="btn btn-day" 
+                        ng-class="{'active': selectedDay === day}" 
+                        ng-repeat="day in daysList" 
+                        ng-click="selectDay(day)">
+                    Day {{ day }}
+                </button>
+            </div>
+
+            <!-- Active Day Plan details -->
+            <div class="active-day-pane">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="h5 fw-bold mb-0">Plan for Day {{ selectedDay }}</h4>
+                    <button class="btn btn-teal-outline btn-sm rounded-pill" ng-click="openAddActivityForm()">
+                        <i class="fas fa-plus"></i> Add Day Activity
+                    </button>
+                </div>
+
+                <!-- Add Activity Drawer form -->
+                <div class="add-activity-drawer p-3 bg-light rounded-3 mb-4" ng-show="showActivityForm">
+                    <form ng-submit="saveActivity($event)">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <label class="form-label small fw-semibold">Start Time</label>
+                                <input type="time" class="form-control" required id="actTime" />
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label small fw-semibold">Activity Description</label>
+                                <input type="text" class="form-control" placeholder="E.g. Visit Taj Mahal, Lunch at hotel..." required id="actDesc" />
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-semibold">Estimated Cost (₹)</label>
+                                <input type="number" class="form-control" placeholder="E.g. 500" required id="actCost" min="0" />
+                            </div>
+                            <div class="col-12 d-flex gap-2 justify-content-end">
+                                <button type="button" class="btn btn-secondary btn-sm px-4 rounded-pill" ng-click="closeActivityForm()">Cancel</button>
+                                <button type="submit" class="btn btn-teal-primary btn-sm px-4 rounded-pill">Save Activity</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Scheduled Items List for selected day -->
+                <div class="itinerary-timeline">
+                    <div class="timeline-event py-3 d-flex gap-4 border-bottom" ng-repeat="act in itinerary[selectedDay] | orderBy:'time'">
+                        <div class="event-time text-teal fw-bold pt-1" style="min-width: 80px;">
+                            <i class="far fa-clock me-1"></i> {{ act.time }}
+                        </div>
+                        <div class="event-details flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h5 class="h6 fw-bold mb-1 text-dark">{{ act.description }}</h5>
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="text-secondary small fw-semibold">Cost: ₹{{ act.cost }}</span>
+                                    <button class="btn btn-link btn-sm text-danger p-0" ng-click="deleteActivity(act)"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center py-5 text-muted" ng-if="!itinerary[selectedDay] || itinerary[selectedDay].length === 0">
+                        <i class="fas fa-calendar-times fa-2x mb-3 text-black-50"></i>
+                        <h5>No activities planned for Day {{ selectedDay }} yet</h5>
+                        <p class="small">Click "Add Day Activity" above to start populating this day schedule.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Empty State Dashboard (No Trip Active) -->
+<div class="row py-5" ng-if="!currentTrip">
+    <div class="col-md-8 mx-auto text-center">
+        <i class="fas fa-map-marked-alt fa-4x text-teal mb-4"></i>
+        <h2 class="fw-bold mb-3">No Active Trip Found</h2>
+        <p class="text-muted mb-4">You haven't initialized an itinerary planner yet. Tell us your destination, dates, and budget to get started on building a customized travel chart.</p>
+        <button class="btn btn-teal-primary px-5 py-3 rounded-pill" ng-click="openCreateTripModal()">
+            <i class="fas fa-plus-circle me-2"></i> Start Planning a Trip
+        </button>
+    </div>
+</div>
+
+<!-- Create/Edit Trip Modal -->
+<div class="modal fade" id="tripModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header bg-teal text-white border-0 py-3 rounded-top-4">
+                <h5 class="modal-title fw-bold"><i class="fas fa-route me-2"></i>Trip Details</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form ng-submit="saveTrip($event)">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Trip Title</label>
+                        <input type="text" class="form-control py-2.5" placeholder="E.g. Summer in Rajasthan" required id="tripTitle" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Destination State</label>
+                        <select class="form-select py-2.5" required id="tripDest">
+                            <option value="">Select State</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                            <option value="Kerala">Kerala</option>
+                        </select>
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label fw-semibold">Start Date</label>
+                            <input type="date" class="form-control py-2.5" required id="tripStart" />
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label fw-semibold">End Date</label>
+                            <input type="date" class="form-control py-2.5" required id="tripEnd" />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Budget Limit (₹)</label>
+                        <input type="number" class="form-control py-2.5" placeholder="E.g. 50000" required id="tripBudget" min="1000" />
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-light w-50 py-2.5 rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-teal-primary w-50 py-2.5 rounded-pill">Save Trip Details</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Booking Scheduled Toast -->
+<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
+    <div id="dashboardToast" class="toast align-items-center text-white bg-success border-0 rounded-pill px-3 py-1" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body" id="toastMessage">
+                Action completed successfully!
+            </div>
+            <button type="button" class="btn-close btn-close-white m-auto me-2" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
