@@ -1,0 +1,119 @@
+<!-- Main Content Container -->
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold mb-3">Local Activities & Folk Traditions</h1>
+        <p class="lead text-muted max-width-600 mx-auto">
+            Immerse yourself in India's diverse heritage. Browse traditional folk dances, historical tours, craft workshops, and spiritual assemblies.
+        </p>
+    </div>
+
+    <!-- Filter & Search Controls Panel -->
+    <div class="filter-panel p-4 mb-5 rounded-4 shadow-sm bg-white">
+        <div class="row g-3 align-items-center">
+            <!-- Search Box -->
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-text bg-light border-0"><i class="fas fa-search text-muted"></i></span>
+                    <input type="text" class="form-control bg-light border-0 py-2.5" placeholder="Search activities, states, or styles..." ng-model="searchText" />
+                </div>
+            </div>
+            <!-- Category Filters -->
+            <div class="col-md-7 d-flex flex-wrap gap-2 justify-content-md-end">
+                <button class="btn btn-filter" ng-class="{'active': selectedCategory === 'all'}" ng-click="setCategory('all')">All</button>
+                <button class="btn btn-filter" ng-class="{'active': selectedCategory === 'dance'}" ng-click="setCategory('dance')">Folk Dance</button>
+                <button class="btn btn-filter" ng-class="{'active': selectedCategory === 'festival'}" ng-click="setCategory('festival')">Festivals</button>
+                <button class="btn btn-filter" ng-class="{'active': selectedCategory === 'craft'}" ng-click="setCategory('craft')">Crafts & Arts</button>
+                <button class="btn btn-filter" ng-class="{'active': selectedCategory === 'nature'}" ng-click="setCategory('nature')">Nature Safari</button>
+            </div>
+        </div>
+        
+        <!-- Dynamic Stats Summary -->
+        <div class="mt-3 text-muted small d-flex justify-content-between align-items-center">
+            <span>Showing {{(activities | filter:categoryFilter | filter:searchText).length}} unique cultural activities</span>
+            <span class="badge bg-teal-soft text-teal" ng-if="bookmarkedCount > 0">
+                <i class="fas fa-bookmark me-1"></i> {{bookmarkedCount}} Bookmarked Items
+            </span>
+        </div>
+    </div>
+
+    <!-- Activities Grid -->
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col" ng-repeat="activity in activities | filter:categoryFilter | filter:searchText">
+            <div class="activity-card h-100 p-4 rounded-4 shadow-sm bg-white border-top-active">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <span class="badge bg-state-label">{{ activity.state }}</span>
+                    <span class="badge bg-category-label text-capitalize">{{ activity.category }}</span>
+                </div>
+                
+                <h2 class="h4 fw-bold mb-2">{{ activity.name }}</h2>
+                <p class="text-secondary mb-4">{{ activity.description }}</p>
+                
+                <div class="card-footer-action d-flex justify-content-between align-items-center pt-3 border-top">
+                    <span class="text-teal fw-semibold"><i class="fas fa-history me-1"></i> {{ activity.duration }}</span>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-icon" ng-class="{'bookmarked': activity.isBookmarked}" ng-click="toggleBookmark(activity)" title="Bookmark">
+                            <i class="fa-bookmark" ng-class="activity.isBookmarked ? 'fas' : 'far'"></i>
+                        </button>
+                        <button class="btn btn-book-now btn-sm px-3 py-2 rounded-pill" ng-click="openBookingModal(activity)">
+                            Add to Planner
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Empty State -->
+    <div class="text-center py-5" ng-if="(activities | filter:categoryFilter | filter:searchText).length === 0">
+        <i class="fas fa-map-signs fa-3x text-muted mb-3"></i>
+        <h3>No Activities Found</h3>
+        <p class="text-muted">Try clearing search text or choosing a different filter tab.</p>
+    </div>
+</div>
+
+<!-- Booking Modal -->
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header bg-teal text-white border-0 py-3 rounded-top-4">
+                <h5 class="modal-title fw-bold"><i class="fas fa-calendar-plus me-2"></i>Add to Planner</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <p class="mb-3 text-secondary">Set a date and duration to schedule <strong>{{activeActivity.name}}</strong> into your TripSavvy travel plans.</p>
+                
+                <form ng-submit="submitBooking($event)">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Target Date</label>
+                        <input type="date" class="form-control py-2.5" required id="bookingDate" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Time Slot</label>
+                        <select class="form-select py-2.5" required id="bookingTime">
+                            <option value="">Select slot</option>
+                            <option value="morning">Morning (09:00 AM - 12:00 PM)</option>
+                            <option value="afternoon">Afternoon (02:00 PM - 05:00 PM)</option>
+                            <option value="evening">Evening (06:00 PM - 09:00 PM)</option>
+                        </select>
+                    </div>
+                    <div class="d-flex gap-2 mt-4">
+                        <button type="button" class="btn btn-light w-50 py-2.5 rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-teal-primary w-50 py-2.5 rounded-pill">Confirm Schedule</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification for Schedule Success -->
+<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
+    <div id="bookingToast" class="toast align-items-center text-white bg-success border-0 rounded-pill px-3 py-1" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="fas fa-check-circle me-2"></i> Activity scheduled successfully!
+            </div>
+            <button type="button" class="btn-close btn-close-white m-auto me-2" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>

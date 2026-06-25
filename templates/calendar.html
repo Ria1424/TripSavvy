@@ -1,0 +1,111 @@
+<div class="container py-5">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h1 class="fw-bold display-5 text-teal mb-2"><i class="fas fa-calendar-alt me-2 text-teal"></i>My Travel Planner</h1>
+            <p class="text-secondary">Schedule activities day by day and track your customized timeline persistently.</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Left Column: Calendar Grid Card -->
+        <div class="col-lg-7">
+            <div class="card border-0 rounded-4 shadow-sm p-4 h-100 bg-white">
+                <!-- Month/Year Header -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <button class="btn btn-calendar-nav" ng-click="prevMonth()" title="Previous Month">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h2 class="h4 fw-bold mb-0 text-dark">{{ monthNames[currentMonth] }} {{ currentYear }}</h2>
+                    <button class="btn btn-calendar-nav" ng-click="nextMonth()" title="Next Month">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Weekdays Grid Header -->
+                <div class="calendar-grid-header mb-2">
+                    <div class="weekday-label" ng-repeat="dayName in weekDays">{{ dayName }}</div>
+                </div>
+
+                <!-- Days Grid -->
+                <div class="calendar-grid-body">
+                    <div class="calendar-cell" 
+                         ng-repeat="dayObj in calendarDays" 
+                         ng-class="{
+                             'empty-cell': !dayObj.day,
+                             'calendar-day': dayObj.day,
+                             'today': dayObj.isToday,
+                             'active-day': dayObj.day === selectedDay && dayObj.dateString === selectedDateString
+                         }"
+                         ng-click="selectDay(dayObj)">
+                        <span class="day-number" ng-if="dayObj.day">{{ dayObj.day }}</span>
+                        <span class="event-dot" ng-if="dayObj.hasEvents"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Day Schedule Panel -->
+        <div class="col-lg-5">
+            <div class="card border-0 rounded-4 shadow-sm p-4 bg-white">
+                <h3 class="h5 fw-bold mb-3 border-bottom pb-2 text-teal">
+                    <i class="fas fa-clock me-2 text-teal"></i>Plan for {{ selectedDateString | date:'fullDate' }}
+                </h3>
+
+                <!-- Event List -->
+                <div class="events-list-container mb-4" style="max-height: 300px; overflow-y: auto;">
+                    <div class="event-item p-3 bg-light rounded-3 mb-2 d-flex justify-content-between align-items-center" ng-repeat="act in activeEvents | orderBy:'time'">
+                        <div class="flex-grow-1 me-2">
+                            <span class="badge bg-teal-soft text-teal mb-1"><i class="far fa-clock me-1"></i>{{ act.time }}</span>
+                            <h4 class="h6 fw-bold mb-1 text-dark">{{ act.place }}</h4>
+                            <p class="small text-secondary mb-0">{{ act.description }}</p>
+                        </div>
+                        <button class="btn btn-link btn-sm text-danger p-0 ms-2" ng-click="deleteActivity(act)" title="Delete Activity">
+                            <i class="fas fa-trash-alt text-danger"></i>
+                        </button>
+                    </div>
+
+                    <div class="text-center py-5 text-muted" ng-if="activeEvents.length === 0">
+                        <i class="far fa-calendar-plus fa-3x mb-3 text-black-50"></i>
+                        <h5>No plans for this day</h5>
+                        <p class="small mb-0">Use the form below to add activities for this date.</p>
+                    </div>
+                </div>
+
+                <!-- Add Activity Form -->
+                <div class="add-event-form border-top pt-3">
+                    <h4 class="h6 fw-bold mb-3 text-dark"><i class="fas fa-plus me-1 text-teal"></i>Add Activity</h4>
+                    <form ng-submit="addActivity($event)">
+                        <div class="mb-2">
+                            <label class="form-label small fw-semibold text-secondary mb-1">Time</label>
+                            <input type="time" class="form-control form-control-sm" id="actTime" required>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label small fw-semibold text-secondary mb-1">Place / Destination</label>
+                            <input type="text" class="form-control form-control-sm" id="actPlace" placeholder="E.g., Taj Mahal" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-secondary mb-1">Activity / Notes</label>
+                            <textarea class="form-control form-control-sm" id="actDesc" rows="2" placeholder="E.g., Morning photoshoot and walking tour" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-teal-primary btn-sm w-100 py-2 rounded-pill">
+                            <i class="fas fa-save me-1"></i>Save Activity
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification for Successful Operation -->
+<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3" style="z-index: 1050;">
+    <div id="calendarToast" class="toast align-items-center text-white bg-success border-0 rounded-pill px-3 py-1 shadow" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="fas fa-check-circle me-1"></i> Activity added to itinerary!
+            </div>
+            <button type="button" class="btn-close btn-close-white m-auto me-2" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>

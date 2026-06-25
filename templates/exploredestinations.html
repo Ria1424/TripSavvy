@@ -1,0 +1,99 @@
+<!-- Search Section -->
+<section class="explore-hero" id="search-section">
+    <div class="explore-hero-content">
+        <h1>Discover the Colors of India</h1>
+        <p>Find historical places, serene escapes, and cultural centers suited for your next itinerary.</p>
+        
+        <div class="search-card">
+            <h2>Explore Destinations</h2>
+            <div class="search-box-container">
+                <div class="input-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" ng-model="searchText" ng-change="updateSuggestions()" placeholder="Type a state name (e.g. Gujarat, Rajasthan...)" autocomplete="off">
+                    <i class="fas fa-times-circle clear-icon" ng-show="searchText" ng-click="clearSearch()"></i>
+                </div>
+                <button id="searchBtn" ng-click="searchState()">Search</button>
+                
+                <!-- Suggestions List -->
+                <ul class="suggestions-list" id="suggestionsList" ng-show="suggestions.length > 0">
+                    <li ng-repeat="s in suggestions" ng-click="selectSuggestion(s)">
+                        <i class="fas fa-map-marker-alt" style="margin-right:8px; font-size:12px;"></i>{{s}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Results Section -->
+<section class="results-section" id="resultsSection" ng-show="showResultCard">
+    <div class="section-container">
+        <div class="result-card">
+            <div class="result-image-side" ng-style="{'background-image': 'url(' + activeStateData.image + ')'}">
+                <div class="state-badge">{{activeStateData.badge}}</div>
+            </div>
+            <div class="result-content-side">
+                <h2 class="result-title">{{activeStateName}}</h2>
+                
+                <div class="detail-box">
+                    <h3>Destination Details</h3>
+                    <p>{{activeStateData.details}}</p>
+                </div>
+
+                <div class="highlights-grid">
+                    <div class="highlight-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div>
+                            <strong>Best Time to Visit</strong>
+                            <span>{{activeStateData.season}}</span>
+                        </div>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-language"></i>
+                        <div>
+                            <strong>Common Languages</strong>
+                            <span>{{activeStateData.languages}}</span>
+                        </div>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Top Highlights</strong>
+                            <span>{{activeStateData.highlights}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-plan" ng-click="addToItinerary(activeStateName)">
+                        <i class="fas fa-plus"></i> Add to Itinerary
+                    </button>
+                    <button class="btn-back" ng-click="closeResult()">
+                        Close Details
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Overview Cards -->
+<section class="destinations-overview">
+    <div class="section-container">
+        <h2>Popular Indian Destinations</h2>
+        <p class="section-subtitle">Click on any card below to load details immediately in the search pane.</p>
+        
+        <div class="quick-grid">
+            <div class="quick-card" ng-repeat="sName in popularStates" ng-click="loadQuickCard(sName)">
+                <div class="quick-card-img" ng-class="sName.toLowerCase() + '-img'"></div>
+                <div class="quick-card-content">
+                    <h3>{{sName}}</h3>
+                    <p ng-if="sName === 'Gujarat'">Lions, desert festivals, and salt pans.</p>
+                    <p ng-if="sName === 'Rajasthan'">Forts, deserts, and grand palaces.</p>
+                    <p ng-if="sName === 'Kerala'">Backwaters, tea gardens, and spices.</p>
+                    <p ng-if="sName === 'Maharashtra'">Caves, beaches, and bustling cities.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
